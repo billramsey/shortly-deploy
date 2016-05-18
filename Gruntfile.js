@@ -41,7 +41,8 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'public/client/*.js',
+        'app/**/*.js'
       ]
     },
 
@@ -98,10 +99,11 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'eslint',
     'concat',
     'uglify',
     'cssmin'
-    //eslint
+
     //mocha
     //concat files.
     //uglify
