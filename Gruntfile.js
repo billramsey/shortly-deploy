@@ -59,10 +59,10 @@ module.exports = function(grunt) {
         files: [
           'public/client/**/*.js',
           'public/lib/**/*.js',
+          'app/**/*.js',
         ],
         tasks: [
-          'concat',
-          'uglify'
+          'build'
         ]
       },
       css: {
@@ -95,22 +95,14 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest'
+    'mochaTest',
+    'eslint',
   ]);
 
   grunt.registerTask('build', [
-    'eslint',
     'concat',
     'uglify',
-    'cssmin'
-
-    //mocha
-    //concat files.
-    //uglify
-
-
-
-
+    'cssmin',
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -122,8 +114,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
-
   ]);
 
 
