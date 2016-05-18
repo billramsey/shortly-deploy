@@ -1,12 +1,17 @@
 module.exports = function(grunt) {
-
+  //src: ['public/lib/**/*.js'],
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {separator: '\n'},
-      dist: {
-        src: ['public/client/**/*.js', 'public/lib/**/*.js'],
-        dest: 'public/dist/built.js'
+      app: {
+        src: ['public/client/**/*.js'],
+        dest: 'public/dist/app-built.js'
+      },
+      library: {
+        src: ['public/lib/jquery.js', 'public/lib/underscore.js',
+         'public/lib/handlebars.js', 'public/lib/backbone.js'],
+        dest: 'public/dist/library-built.js'
       }
     },
 
@@ -26,9 +31,10 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      my_target: {
+      myTarget: {
         files: {
-          'public/dist/built.min.js': ['public/dist/built.js']
+          'public/dist/app.min.js': ['public/dist/app-built.js'],
+          'public/dist/library.min.js': ['public/dist/library-built.js']
         }
       }
     },
@@ -40,6 +46,11 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
+      target: {
+        files: {
+          'public/dist/output.css' : ['public/*.css']
+        }
+      }
     },
 
     watch: {
@@ -88,7 +99,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'concat',
-    'uglify'
+    'uglify',
+    'cssmin'
     //eslint
     //mocha
     //concat files.
