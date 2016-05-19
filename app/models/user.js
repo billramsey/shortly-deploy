@@ -56,11 +56,19 @@ userSchema.pre('save', function(next) {
   // do stuff
   // console.log("GOT TO INIT");
   // console.log('pw', this.password);
+  console.time("hash1");
+
   var cipher = Promise.promisify(bcrypt.hash);
+
+  console.timeEnd("hash1");
+  console.time("hash2");
   cipher(this.password, null, null).bind(this)
     .then(function(hash) {
-      console.log('storing pw as ', hash);
+      console.timeEnd("hash2");
+      //console.log('storing pw as ', hash);
+      console.time("hash3");
       this.password = hash;
+      console.timeEnd("hash3");
       next();
     });
   

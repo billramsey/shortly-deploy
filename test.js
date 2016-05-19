@@ -30,9 +30,13 @@ console.log('here');
         });
         newLink.save().then(function(newLink) {
 console.log('got to save');
-          Links.add(newLink);
+//          Links.add(newLink);
 console.log('links');
-          res.status(200).send(newLink);
+ //         res.status(200).send(newLink);
         }).catch(function(err) {
 console.log('err', err);
-});;
+});
+Link.find({}, function(err, docs) {
+
+console.log(docs);
+});

@@ -26,11 +26,24 @@ var linkSchema = mongoose.Schema({
 });
 
 linkSchema.methods.fetch = function (cb) {
-  console.log('fetching');
+  //console.log('fetching');
   return this.model('Link').findOne({ url: this.url }, cb);
   // return this.model('Animal').find({ type: this.type }, cb);
 };
+
+linkSchema.pre('save', function(next) {
+  //console.log('got to presave on link');
+  var shasum = crypto.createHash('sha1');
+  shasum.update(this.url);
+  this.code = shasum.digest('hex').slice(0, 5);
+  //console.log('this.code', this.code);
+  next();
+});
+
+
+
 var Link = mongoose.model('Link', linkSchema);
+
 
 
 

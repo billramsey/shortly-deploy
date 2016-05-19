@@ -49,6 +49,7 @@ describe('', function() {
           .expect(200)
           .expect(function(res) {
             expect(res.body.url).to.equal('http://www.roflzoo.com/');
+
             expect(res.body.code).to.be.ok;
           })
           .end(done);
@@ -112,6 +113,9 @@ describe('', function() {
           .expect(200)
           .expect(function(res) {
             var secondCode = res.body.code;
+
+            //console.log('res.body:', res.body, ' second code', secondCode);
+
             expect(secondCode).to.equal(firstCode);
           })
           .end(done);
@@ -188,6 +192,7 @@ describe('', function() {
     });
 
     it('Successful signup logs in a new user', function(done) {
+      this.timeout(3000);
       request(app)
         .post('/signup')
         .send({
@@ -195,7 +200,7 @@ describe('', function() {
           'password': 'Phillip' })
         .expect(302)
         .expect(function(res) {
-          console.log('TEST: in successful signup');
+          //console.log('TEST: in successful signup');
           expect(res.headers.location).to.equal('/');
           request(app)
             .get('/logout')
@@ -207,19 +212,22 @@ describe('', function() {
   }); // 'Account Creation'
 
   describe('Account Login:', function() {
-
+    this.timeout(3000);
     beforeEach(function(done) {
+      this.timeout(3000);
       new User({
         'username': 'Phillip',
         'password': 'Phillip'
       }).save(function() {
 
-        console.log('TEST.  Calling DONE');
+        //console.log('TEST.  Calling DONE');
         done();
       });
     });
 
     it('Logs in existing users', function(done) {
+
+      this.timeout(3000);
       request(app)
         .post('/login')
         .send({
