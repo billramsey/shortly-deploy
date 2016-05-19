@@ -11,7 +11,7 @@ var Link = require('../app/models/link');
 // NOTE: these tests are designed for mongo!
 /////////////////////////////////////////////////////
 
-xdescribe('', function() {
+describe('', function() {
 
   beforeEach(function(done) {
     // Log out currently signed in user
@@ -195,6 +195,7 @@ xdescribe('', function() {
           'password': 'Phillip' })
         .expect(302)
         .expect(function(res) {
+          console.log('TEST: in successful signup');
           expect(res.headers.location).to.equal('/');
           request(app)
             .get('/logout')
@@ -212,6 +213,8 @@ xdescribe('', function() {
         'username': 'Phillip',
         'password': 'Phillip'
       }).save(function() {
+
+        console.log('TEST.  Calling DONE');
         done();
       });
     });
