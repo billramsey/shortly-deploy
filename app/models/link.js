@@ -44,9 +44,4 @@ linkSchema.pre('save', function(next) {
 
 var Link = mongoose.model('Link', linkSchema);
 
-
-
-
-
-
 module.exports = Link;
